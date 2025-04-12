@@ -10,7 +10,7 @@ export const SearchBar = ({ setResults }) => {
   const fetchData = async (url) => {
     if (!url.trim()) return;
     try {
-      const response = await fetch("https://g5t12tdl-8000.euw.devtunnels.ms/parse/aliexpress?url="+url,);
+      const response = await fetch('https://g5t12tdl-8000.euw.devtunnels.ms/parse/aliexpress?url=');
 
       if (!response.ok) {
         throw new Error("Ошибка при запросе к серверу");
