@@ -25,3 +25,32 @@ input:focus {
 #search-icon {
     color: black;
 }
+
+.search-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  
+  .clear-button {
+    position: absolute;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .clear-button:hover {
+    color: #ef4444;
+  }
+  
+  .error-message {
+    color: #ef4444;
+    margin-top: 10px;
+    text-align: center;
+  }

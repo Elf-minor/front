@@ -1,7 +1,7 @@
 .header {
     position: absolute;
     top: 0;
-    width: 100%;
+    width:100%;
     z-index: 999;
     color: white;
     display: flex;
@@ -11,9 +11,6 @@
     padding: 0 150px;
 }
 
-.header-menu-img-wrapper {
-    display: none;
-}
 
 .header-ul {
     display: flex;
@@ -21,32 +18,11 @@
     gap: 20px;
 }
 
-.header-ul li {
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.header-ul li:hover{
-    color: #2091f9;
-}
 
 .header-logo{
-    width: 115px;
+    width: 110px;
     margin-right: 100px;
     cursor: pointer;
 }
 
-.header-icons {
-    display: flex;
-    gap: 15px;
-}
 
-.header-icons img{
-    cursor: pointer;
-    transition: scale 0.3s;
-}
-
-.header-icons img:hover {
-    scale: 1.1;
-    
-}
