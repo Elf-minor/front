@@ -1,46 +1,60 @@
 import { Link } from "react-router";
-import { NavLink, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import { useState } from "react";
+import userService from "../service/user.service";
 
-export function Login() {
+export function Login({ setAccess }) {
   const navigate = useNavigate();
+  const [user, setUser] = useState({
+    userName: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setUser({ ...user, [e.target.name]: value });
+  };
+
+  const registerUser = (e) => {
+    e.preventDefault();
+    userService.saveUser(user, "/login").then((res) => {
+      if (res) {
+        setAccess(true);
+        navigate("../main", { relative: "path" });
+      }
+    });
+  };
   return (
     <>
-      {/* <!-- создаём контейнер --> */}
       <div class="container">
         <div class="row">
-          {/* <!-- указываем стиль адаптивной вёрстки --> */}
           <div class="col-md-12">
-            {/* <!-- пишем заголовок и пояснительный текст --> */}
             <h2>Вход</h2>
             <p>Введите свою почту и пароль.</p>
-            {/* <!-- метод, которым будем работать с формой — отправлять на сервер --> */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                navigate("/main");
-              }}
-            >
-              {/* <!-- поле ввода электронной почты --> */}
+            <form onSubmit={registerUser}>
               <div class="form-group">
                 <label>Электронная почта</label>
                 <input
                   type="email"
                   name="email"
                   class="form-control"
+                  onChange={handleChange}
+                  value={user.email}
                   required
                 />
               </div>
-              {/* <!-- поле ввода пароля --> */}
               <div class="form-group">
                 <label>Пароль</label>
                 <input
                   type="password"
                   name="password"
                   class="form-control"
+                  onChange={handleChange}
+                  value={user.password}
                   required
                 />
               </div>
-              {/* <!-- кнопка отправки данных на сервер --> */}
               <div class="form-group">
                 <input
                   type="submit"
@@ -49,13 +63,8 @@ export function Login() {
                   value="Войти"
                 />
               </div>
-              {/* <!-- ссылка для тех, у кого ещё нет аккаунта --> */}
               <p>
                 Нет аккаунта? <Link to="/">Создайте его</Link>.
-              </p>
-              <p>
-                Ссылка для тестирования фронта <Link to="/main">Main page</Link>
-                .
               </p>
             </form>
           </div>

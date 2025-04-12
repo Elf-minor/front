@@ -1,8 +1,28 @@
-import { NavLink, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { Link } from "react-router";
+import { useState } from "react";
+import userService from "../service/user.service";
 
-function App() {
+export function App({ setAccess }) {
   const navigate = useNavigate();
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setUser({ ...user, [e.target.name]: value });
+  };
+
+  const registerUser = (e) => {
+    e.preventDefault();
+    userService.saveUser(user).then((res) => {
+      if (res) {
+        setAccess(true);
+        navigate("main");
+      }
+    });
+  };
   return (
     <>
       <div className="container">
@@ -11,21 +31,7 @@ function App() {
             <h2>Регистрация</h2>
             <p>Заполните все поля, чтобы создать новый аккаунт.</p>
 
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                navigate("main");
-              }}
-            >
-              <div className="form-group">
-                <label>Имя</label>
-                <input
-                  type="text"
-                  name="name"
-                  className="form-control"
-                  required
-                />
-              </div>
+            <form onSubmit={registerUser}>
 
               <div className="form-group">
                 <label>Электронная почта</label>
@@ -33,6 +39,8 @@ function App() {
                   type="email"
                   name="email"
                   className="form-control"
+                  onChange={handleChange}
+                  value={user.email}
                   required
                 />
               </div>
@@ -43,6 +51,8 @@ function App() {
                   type="password"
                   name="password"
                   className="form-control"
+                  onChange={handleChange}
+                  value={user.password}
                   required
                 />
               </div>
@@ -75,5 +85,3 @@ function App() {
     </>
   );
 }
-
-export default App;
