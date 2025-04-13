@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import userService from "../service/user.service";
+import { FaSpinner } from "react-icons/fa";
 
 export function Login({ setAccess }) {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ export function Login({ setAccess }) {
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -18,50 +20,67 @@ export function Login({ setAccess }) {
 
   const registerUser = (e) => {
     e.preventDefault();
-    userService.saveUser(user, "/login").then((res) => {
-      if (res) {
-        setAccess(true);
-        navigate("../main", { relative: "path" });
-      }
-    });
+    setIsLoading(true);
+
+    userService
+      .saveUser(user, "/login")
+      .then((res) => {
+        if (res) {
+          setAccess(true);
+          navigate("../main", { relative: "path" });
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
+
   return (
     <>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-12">
             <h2>Вход</h2>
             <p>Введите свою почту и пароль.</p>
             <form onSubmit={registerUser}>
-              <div class="form-group">
+              <div className="form-group">
                 <label>Электронная почта</label>
                 <input
                   type="email"
                   name="email"
-                  class="form-control"
+                  className="form-control"
                   onChange={handleChange}
                   value={user.email}
                   required
+                  disabled={isLoading}
                 />
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label>Пароль</label>
                 <input
                   type="password"
                   name="password"
-                  class="form-control"
+                  className="form-control"
                   onChange={handleChange}
                   value={user.password}
                   required
+                  disabled={isLoading}
                 />
               </div>
-              <div class="form-group">
-                <input
+              <div className="form-group">
+                <button
                   type="submit"
-                  name="submit"
-                  class="btn btn-primary"
-                  value="Войти"
-                />
+                  className="btn btn-primary"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      <FaSpinner className="spinner" /> Вход...
+                    </>
+                  ) : (
+                    "Войти"
+                  )}
+                </button>
               </div>
               <p>
                 Нет аккаунта? <Link to="/">Создайте его</Link>.

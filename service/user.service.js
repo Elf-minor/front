@@ -1,16 +1,20 @@
 import axios from "axios";
-const API_URL = "https://g5t12tdl-8000.euw.devtunnels.ms";
+// import counter from "../src/Counter";
 
+const API_URL = "https://g5t12tdl-8000.euw.devtunnels.ms";
 class UserService {
   saveUser(user, type = "/register") {
-    return axios
-      .post(API_URL + type, user, {
-        headers: {
-          Type: "Alfatest",
-        },
-        withCredentials: true,
-      })
-      .then((res) => !!res.data.access_token);
+    return (
+      // counter(true),
+      axios
+        .post(API_URL + type, user, {
+          headers: {
+            Type: "Alfatest",
+          },
+          withCredentials: true,
+        })
+        .then((res) => !!res.data.access_token)
+    );
   }
 }
 
