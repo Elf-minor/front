@@ -31,8 +31,8 @@ export const SearchResult = ({ result, isLoading=false }) => {
                 { `${result.price} ₽`}
               </span>
             </div>
-            {result.article && (
-            <div className="product-article">Артикул: {result.article}</div>
+            {result.nm_id && (
+            <span className="product-nm_id">Артикул: {result.nm_id}</span>
             )}
           </div>
         </>

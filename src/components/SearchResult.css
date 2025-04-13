@@ -165,14 +165,14 @@
   .product-price {
     font-size: 18px;
     font-weight: 700;
-    color: #d32f2f;
+    color: #000000;
   }
   
-  .product-article {
+  .product-nm_id {
     font-size: 14px;
-    color: #666;
+    color: #0a0101;
     padding: 4px 8px;
     background-color: #f0f0f0;
     border-radius: 4px;
-    display: inline-block;
+    /* display: inline-block; */
   }
